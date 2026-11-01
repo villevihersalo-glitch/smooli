@@ -4,17 +4,15 @@
 > making, coffee, software. Capture pages drawn as they look in the app, in the Block Party LED skin.
 
 ## Status
-- **Stage:** Site and Capture's PUBLISH both built; waiting for GitHub Pages and the first real post
-- **Last updated:** 2026-11-01 — by Claude (PROJECTS page)
+- **Stage:** Live on GitHub Pages; Ville publishes from Capture
+- **Last updated:** 2026-11-01 — by Claude (live, first real posts)
 - **Home tool for code:** Claude
 - **Repo:** github.com/villevihersalo-glitch/smooli (public)
 - **How to build/run:** Nothing to build. GitHub Pages serves `main`. Locally: `python3 -m http.server`.
 - **Plan:** Capture's `docs/PUBLISH.md`
 
 ## Next step
-- [ ] Ville switches on GitHub Pages (Settings → Pages → Deploy from a branch → `main`, `/ (root)`), then
-  publishes his first page from Capture (SHARE → SETUP with a GitHub key, BLOG notebook, PUBLISH) and
-  checks it on the site. The sample posts disappear with that first publish.
+- [ ] Nothing pending: Ville publishes as he writes. Ideas for later are in the parking lot.
 
 ## Scope
 **In now:** front page of posts, a PROJECTS page (Capture's project board, public cards with status lamps), sections (one per BLOG notebook), post pages drawing Capture
@@ -25,6 +23,7 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-01 — Live: Ville switched on GitHub Pages and published his board and first pages from Capture; everything works
 - 2026-11-01 — PROJECTS page: Capture's board cards marked ON WEBSITE, with pictures, status lamps (in progress pulses), subtitle and notes; key in the menu when there are any; demo projects
 - 2026-11-01 — Capture 0.10.0 publishes here (PUBLISH / UPDATE / UNPUBLISH); posts list their `files` in site.json
 - 2026-11-01 — First version: front page with LED-key sections and paper cards, post pages drawing Capture pages
