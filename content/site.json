@@ -48,14 +48,17 @@
    "posts": [
     {
      "id": "369906be-7da6-4c53-8840-d341c90cbd79",
-     "title": "Untitled",
+     "title": "Smooli",
      "date": 1793541673087,
-     "updated": 1793541673087,
-     "excerpt": "",
-     "cover": null,
+     "updated": 1793541868864,
+     "excerpt": "The story is forming",
+     "cover": "img-45ddbbf2-f9f3-4dcb-8b76-add865540c4f.jpg",
      "template": "mag-portrait",
      "width": 423,
-     "files": []
+     "files": [
+      "img-45ddbbf2-f9f3-4dcb-8b76-add865540c4f.jpg",
+      "img-59d766c8-67fe-4088-a6ad-e201f4aa520f.jpg"
+     ]
     }
    ],
    "title": "SMOOLI - Creator",
