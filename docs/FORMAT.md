@@ -23,7 +23,8 @@ publish). The site only reads them.
           "excerpt": "Neon, rain and…",
           "cover": "img-….jpg",        // first picture on the page, or null
           "template": "mag-street",
-          "width": 393 }               // page width on the phone (dp): the page is drawn at it and scaled
+          "width": 393,                // page width on the phone (dp): the page is drawn at it and scaled
+          "files": ["img-….jpg"] }     // pictures and sounds the page shows (so UNPUBLISH knows what to delete)
       ] }
   ]
 }
