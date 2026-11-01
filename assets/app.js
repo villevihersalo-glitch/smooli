@@ -11,6 +11,11 @@ const FILES = CONTENT + "files/";
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 const app = document.getElementById("app");
 let site = null;
+const PROJECTS = "\u0000projects";
+const LAMP = { off: "#8b877e", red: "#ff3b30", yellow: "#ffd60a", green: "#32d74b" };
+const STATUS = {
+  off: "NOT STARTED", red: "PAUSED", yellow: "IN PROGRESS", green: "READY",
+};
 
 const el = (tag, cls, kids = []) => {
   const e = document.createElement(tag);
@@ -48,6 +53,7 @@ function header(active) {
   if (site.tagline) top.append(el("div", "tagline", [led(site.tagline, { pitch: 1.6, color: level(AMBER, MID) })]));
   const nav = el("nav", "sections");
   nav.append(ledKey("ALL", { href: "#/", chosen: !active }));
+  if ((site.projects || []).length) nav.append(ledKey("PROJECTS", { href: "#/projects", chosen: active === PROJECTS }));
   for (const s of site.sections || []) {
     if (!(s.posts || []).length) continue;
     nav.append(ledKey(s.title, { href: "#/s/" + encodeURIComponent(s.id), chosen: active === s.id }));
@@ -99,6 +105,44 @@ function list(active) {
   document.title = s ? `${s.title} · ${site.title}` : site.title;
 }
 
+/** The PROJECTS board from Capture: every public project with its status lamp. */
+function projects() {
+  const main = el("main", "board");
+  const legend = el("div", "legend");
+  for (const [k, label] of Object.entries(STATUS)) {
+    legend.append(el("span", null, [el("i", "lamp " + k), led(label, { pitch: 1.4, color: level(AMBER, MID) })]));
+  }
+  const grid = el("div", "projects");
+  for (const p of site.projects || []) {
+    const card = el("article", "project");
+    const thumb = el("div", "thumb");
+    if (p.image) {
+      const img = el("img");
+      img.src = FILES + p.image;
+      img.alt = "";
+      img.loading = "lazy";
+      thumb.append(img);
+    } else thumb.append(el("div", "ph", [led("NO IMAGE", { pitch: 1.6, color: "#3a3a40" })]));
+    const head = el("div", "row");
+    const lamp = el("i", "lamp " + (STATUS[p.status] ? p.status : "off"));
+    lamp.title = STATUS[p.status] || STATUS.off;
+    const title = el("h2");
+    title.textContent = p.title || "Untitled";
+    head.append(lamp, title);
+    const body = el("div", "body", [head]);
+    if (p.subtitle) { const x = el("div", "subtitle"); x.textContent = p.subtitle; body.append(x); }
+    if (p.notes) { const x = el("div", "notes"); x.textContent = p.notes; body.append(x); }
+    const st = STATUS[p.status] ? p.status : "off";
+    body.append(el("div", "status", [led(STATUS[st], { pitch: 1.4, color: LAMP[st] })]));
+    card.append(thumb, body);
+    grid.append(card);
+  }
+  main.append(legend, grid);
+  if (site.projectsUpdated) main.append(el("div", "updated", [led("UPDATED " + date(site.projectsUpdated), { pitch: 1.4, color: level(AMBER, DIM) })]));
+  app.replaceChildren(header(PROJECTS), main, footer());
+  document.title = `Projects · ${site.title}`;
+}
+
 async function post(id) {
   const p = allPosts().find((x) => x.id === id);
   if (!p) return list(null);
@@ -135,6 +179,7 @@ function fit(sheet, page) {
 
 async function route() {
   await loadSite();
+  if (location.hash === "#/projects") return projects();
   const [, kind, id] = location.hash.match(/^#\/(s|p)\/(.+)$/) || [];
   if (kind === "p") return post(decodeURIComponent(id));
   list(kind === "s" ? decodeURIComponent(id) : null);

@@ -141,6 +141,16 @@ site = {
     "title": "SMOOLI",
     "tagline": "WRITING / MUSIC / PHOTOS / MAKING / CODE",
     "demo": True,
+    "projects": [
+        {"id": "demo-p1", "title": "Capture", "subtitle": "Paper notebook for songs, photos and notes", "status": "yellow",
+         "notes": "Publishing to this site from the phone.", "image": "demo-street-2.jpg", "updated": now},
+        {"id": "demo-p2", "title": "Beat Pad", "subtitle": "16 pads, step sequencer, kits", "status": "green",
+         "notes": "Piano and guitar sounds in.", "image": None, "updated": now},
+        {"id": "demo-p3", "title": "Battle Wall", "subtitle": "Freestyle and graffiti battles", "status": "red",
+         "notes": "Waiting for a phone test.", "image": "demo-street-3.jpg", "updated": now},
+        {"id": "demo-p4", "title": "Hilux RN20", "subtitle": "V6 swap", "status": "off", "notes": "", "image": None, "updated": now},
+    ],
+    "projectsUpdated": now,
     "sections": [
         {"id": "demo-photos", "title": "Photography", "paper": "warm", "posts": [
             {"id": "demo-bangkok", "title": "Bangkok after dark", "date": now - 1 * DAY, "updated": now - 1 * DAY,

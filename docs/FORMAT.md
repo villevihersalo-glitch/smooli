@@ -14,6 +14,11 @@ publish). The site only reads them.
   "format": "smooli.site", "version": 1,
   "title": "SMOOLI",
   "tagline": "WRITING / MUSIC / PHOTOS / MAKING / CODE",
+  "projects": [                      // Capture's PROJECTS board: cards marked ON WEBSITE
+    { "id": "…", "title": "Capture", "subtitle": "Paper notebook", "status": "yellow",   // off | red | yellow | green
+      "notes": "…", "image": "img-….jpg", "updated": 1761955200000 }
+  ],
+  "projectsUpdated": 1761955200000,
   "sections": [                      // one per BLOG notebook, in the order Capture lists them
     { "id": "<notebook id>", "title": "Photography", "paper": "warm",   // warm | night
       "posts": [
