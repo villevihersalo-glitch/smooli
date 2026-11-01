@@ -1,0 +1,12 @@
+name: Check
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # The page layout must match Capture's; these tests say so.
+      - run: node --test tests/*.test.mjs

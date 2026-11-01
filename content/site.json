@@ -1,0 +1,60 @@
+{
+ "format": "smooli.site",
+ "version": 1,
+ "title": "SMOOLI",
+ "tagline": "WRITING / MUSIC / PHOTOS / MAKING / CODE",
+ "demo": true,
+ "sections": [
+  {
+   "id": "demo-photos",
+   "title": "Photography",
+   "paper": "warm",
+   "posts": [
+    {
+     "id": "demo-bangkok",
+     "title": "Bangkok after dark",
+     "date": 1793445875371,
+     "updated": 1793445875371,
+     "excerpt": "Neon, rain and the hum of a city that never quite sleeps. (Sample page)",
+     "cover": "demo-street-1.jpg",
+     "template": "mag-street",
+     "width": 393
+    }
+   ]
+  },
+  {
+   "id": "demo-music",
+   "title": "Music",
+   "paper": "night",
+   "posts": [
+    {
+     "id": "demo-night-drive",
+     "title": "Night Drive",
+     "date": 1793359475371,
+     "updated": 1793359475371,
+     "excerpt": "Am, F, C, G at 92 BPM, with the beat looping under it. (Sample page)",
+     "cover": null,
+     "template": "chords",
+     "width": 393
+    }
+   ]
+  },
+  {
+   "id": "demo-writing",
+   "title": "Writing",
+   "paper": "warm",
+   "posts": [
+    {
+     "id": "demo-writing",
+     "title": "Building in public",
+     "date": 1793273075371,
+     "updated": 1793273075371,
+     "excerpt": "Everything on this site starts as a page in a notebook on my phone. (Sample page)",
+     "cover": null,
+     "template": "ruled",
+     "width": 393
+    }
+   ]
+  }
+ ]
+}
