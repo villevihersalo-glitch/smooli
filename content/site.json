@@ -63,26 +63,6 @@
    ],
    "title": "SMOOLI - Creator",
    "paper": "night"
-  },
-  {
-   "id": "3324277c-2723-42b6-919d-965bd2566889",
-   "posts": [
-    {
-     "id": "c5e8af08-7ee1-4f72-b020-da61d4e0c8fd",
-     "title": "Trap 6",
-     "date": 1793573010844,
-     "updated": 1793573010844,
-     "excerpt": "Tät-tät tät-tät tät-tät tät-tät tää",
-     "cover": null,
-     "template": "song",
-     "width": 423,
-     "files": [
-      "230dea6b-dffa-44da-8910-3d5e4356cf8e.m4a"
-     ]
-    }
-   ],
-   "title": "Shared",
-   "paper": "night"
   }
  ]
 }
