@@ -1,10 +1,11 @@
 /*
  * The site: a front page of every post, one page per section (a Capture notebook) and one
  * page per post (a Capture page), all from content/site.json, written by Capture's PUBLISH.
- * Addresses: #/  ·  #/s/<section id>  ·  #/p/<page id>
+ * Addresses: #/  ·  #/s/<section id>  ·  #/p/<page id>  ·  #/projects  ·  #/dot  ·  #/dot/<app>
  */
 import { led, ledKey, AMBER, level, MID, DIM } from "./led.js";
 import { readPage, renderPage, PAPERS } from "./page.js";
+import { dotHome, dotApp } from "./dot.js";
 
 const CONTENT = "content/";
 const FILES = CONTENT + "files/";
@@ -12,6 +13,8 @@ const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "
 const app = document.getElementById("app");
 let site = null;
 const PROJECTS = "\u0000projects";
+const DOT = "\u0000dot";
+let dot = null;
 const LAMP = { off: "#8b877e", red: "#ff3b30", yellow: "#ffd60a", green: "#32d74b" };
 const STATUS = {
   off: "NOT STARTED", red: "PAUSED", yellow: "IN PROGRESS", green: "READY",
@@ -54,6 +57,7 @@ function header(active) {
   const nav = el("nav", "sections");
   nav.append(ledKey("ALL", { href: "#/", chosen: !active }));
   if ((site.projects || []).length) nav.append(ledKey("PROJECTS", { href: "#/projects", chosen: active === PROJECTS }));
+  nav.append(ledKey(".DOT APPS", { href: "#/dot", chosen: active === DOT }));
   for (const s of site.sections || []) {
     if (!(s.posts || []).length) continue;
     nav.append(ledKey(s.title, { href: "#/s/" + encodeURIComponent(s.id), chosen: active === s.id }));
@@ -177,9 +181,25 @@ function fit(sheet, page) {
   sheet.style.height = pageH * k + "px";
 }
 
+/** The Dot family's pages, from content/dot.json (written by hand; Capture never touches it). */
+async function dotPages(id) {
+  if (!dot) {
+    const r = await fetch(CONTENT + "dot.json", { cache: "no-cache" });
+    dot = r.ok ? await r.json() : { apps: [], flows: [] };
+  }
+  const main = id ? dotApp(dot, id) : dotHome(dot);
+  if (!main) return dotPages(null);
+  app.replaceChildren(header(DOT), main, footer());
+  const a = id && dot.apps.find((x) => x.id === id);
+  document.title = a ? `${a.name} · .DOT` : `.DOT apps · ${site.title}`;
+  window.scrollTo(0, 0);
+}
+
 async function route() {
   await loadSite();
   if (location.hash === "#/projects") return projects();
+  const d = location.hash.match(/^#\/dot(?:\/([\w-]+))?$/);
+  if (d) return dotPages(d[1] || null);
   const [, kind, id] = location.hash.match(/^#\/(s|p)\/(.+)$/) || [];
   if (kind === "p") return post(decodeURIComponent(id));
   list(kind === "s" ? decodeURIComponent(id) : null);

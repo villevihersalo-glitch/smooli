@@ -1,0 +1,119 @@
+{
+  "format": "smooli.dot",
+  "version": 1,
+  "title": ".DOT",
+  "tagline": "SMALL APPS IN LED DOTS, MADE TO WORK TOGETHER",
+  "intro": "The Dot apps are a family of Android apps drawn in amber LED dots. Each one does one thing well and works offline; together they take an idea from a beat to a finished song, from a photo to your home screen. No accounts, no ads, no AI.",
+  "flows": [
+    {
+      "id": "song",
+      "title": "FROM BEAT TO SONG",
+      "about": "Make a beat, write to it, record it, put it out.",
+      "steps": [
+        { "app": "beatpad", "what": "Build a beat on the pads and chain patterns A, B, C… into a song." },
+        { "app": "capture", "what": ".CAPTURE ▸ drops the beat on your notebook page, looping, while you write the lyrics." },
+        { "app": "studio", "what": ".STUDIO ▸ opens the song in .Studio, already cut into its parts. Record each section, clean it up, mix." },
+        { "app": "studio", "what": "MAKE VIDEO turns the song into a lyric video with your pictures." },
+        { "app": "capture", "what": "SEND TO CAPTURE puts the finished song back on a song sheet, with the mix as a player." }
+      ]
+    },
+    {
+      "id": "photo",
+      "title": "FROM PHOTO TO EVERYWHERE",
+      "about": "Shoot, edit, and send the picture where it's needed.",
+      "steps": [
+        { "app": "finder", "what": "Take the photo with rangefinder framelines and the LED dot look." },
+        { "app": "editor", "what": "EDIT opens it in .Editor: light, colour, film filters, crop, LED dots, a stamp." },
+        { "app": "editor", "what": "SEND hands it straight to the app you choose:" },
+        { "app": "capture", "what": "a new notebook page, or a magazine layout," },
+        { "app": "studio", "what": "the picture behind a song's lyric video," },
+        { "app": "wallpaper", "what": "a full-screen LED picture on your home screen," },
+        { "app": "battlewall", "what": "the wall you battle on." }
+      ]
+    },
+    {
+      "id": "battle",
+      "title": "BATTLE A FRIEND",
+      "about": "A freestyle or graffiti battle, sent as a file.",
+      "steps": [
+        { "app": "beatpad", "what": "Make a beat (or use one of .BattleWall's own)." },
+        { "app": "battlewall", "what": "Write a verse one line per bar and rap it, or paint a piece that moves on the beat." },
+        { "app": "battlewall", "what": "SEND CHALLENGE: your friend answers on their phone and sends it back. Watch both rounds, pick who won, export the video." }
+      ]
+    }
+  ],
+  "apps": [
+    {
+      "id": "beatpad", "name": ".BEATPAD", "pkg": "com.vihersalo.beatpad", "released": false,
+      "tagline": "MAKE BEATS",
+      "about": "A beat maker with 16 pads, a step sequencer and eight patterns that chain into a song. Kits from classic drums to hand drums and a hang, synths, your own samples, piano and guitar on any pad, and lessons that build a groove layer by layer.",
+      "features": ["16 pads, step sequencer, patterns A–H and a song line", "Kits, synths, samples, piano and guitar sounds", "Mix: echo, reverb, filter, drive", "Learn: drum lessons and Build a beat", "MIDI controllers", "Send to .Studio, .Capture and .BattleWall; save WAV or stems"],
+      "with": ["studio", "capture", "battlewall"],
+      "videos": []
+    },
+    {
+      "id": "studio", "name": ".STUDIO", "pkg": "com.vihersalo.mobstudio", "released": false,
+      "tagline": "RECORD YOUR SONG",
+      "about": "A pocket recording studio. Bring in a beat, write the lyrics one line per bar and record rap or singing section by section, with the bars, the beat and the section you're in always on screen. Then make a lyric video of the song.",
+      "features": ["Sections with their own takes; pick the best one", "Count-in, teleprompter, level meter and live waveform", "CLEAN UP takes out room hiss; SYNC nudges a take", "Mix and export WAV or M4A", "Lyric videos: LED, karaoke or big type over your pictures, 1080p or 720p"],
+      "with": ["beatpad", "capture", "editor"],
+      "videos": []
+    },
+    {
+      "id": "capture", "name": ".CAPTURE", "pkg": "com.vihersalo.capture", "released": false,
+      "tagline": "A PAPER NOTEBOOK",
+      "about": "A paper notebook on your phone: type anywhere, draw over it, turn the page. Song sheets with chords, sections and alternative lyrics; magazine pages for photo stories; a project board. This website is published from it.",
+      "features": ["Type anywhere, draw, pictures, voice notes", "Song sheets: chords, sections, song details, alternative lyrics", "Beats on the page, looping while you write", "Photo magazine layouts", "Export PDF or text, share pages, back up", "Publish pages to your own website"],
+      "with": ["beatpad", "studio", "editor"],
+      "videos": []
+    },
+    {
+      "id": "battlewall", "name": ".BATTLEWALL", "pkg": "com.vihersalo.battlewall", "released": false,
+      "tagline": "BATTLE ON THE WALL",
+      "about": "Freestyle and graffiti battles with friends. Write a verse and rap it while the LED wall sprays it bar by bar, or paint a messy animated piece on the wall. Funny scenes for every genre, and a video to share at the end.",
+      "features": ["Freestyle Battle: write, rap, sprayed bar by bar", "Graffiti Battle: spray cans, drips, frames that move on the beat", "Challenges as files: no account needed", "Scenes and beats for six genres", "1080 × 1920 video export"],
+      "with": ["beatpad", "editor"],
+      "videos": []
+    },
+    {
+      "id": "boombox", "name": ".BOOMBOX", "pkg": "com.vihersalo.tapedeck", "released": false,
+      "tagline": "A 90S MUSIC PLAYER",
+      "about": "A music player that looks like the nineties: skinned windows, an equaliser, a playlist, visualizers and classic skins. Internet radio, your own music, Bandcamp and music servers, and scratch decks for fun.",
+      "features": ["LED and classic .wsz skins", "Internet radio with thousands of stations", "Visualizers, including Milkdrop-style presets", "Bandcamp and Subsonic servers", "Scratch decks and MIDI controllers"],
+      "with": [],
+      "videos": []
+    },
+    {
+      "id": "finder", "name": ".FINDER", "pkg": "com.vihersalo.dotfinder", "released": false,
+      "tagline": "A RANGEFINDER CAMERA",
+      "about": "A camera with rangefinder bright-line frames for 35 and 50 mm, manual controls and a live LED dot look. Each photo can carry the place and the temperature.",
+      "features": ["35 / 50 mm framelines", "Manual focus with peaking, double exposure, long exposure", "Live LED dot filter for photos and video", "Place and temperature saved in the photo", "EDIT opens the shot in .Editor"],
+      "with": ["editor"],
+      "videos": []
+    },
+    {
+      "id": "editor", "name": ".EDITOR", "pkg": "com.vihersalo.doteditor", "released": false,
+      "tagline": "EDIT PHOTOS",
+      "about": "A photo editor with film-style filters, a colour mixer and grading wheels, crop and cinema bars, and the LED dot look. SEND hands the finished photo to any Dot app.",
+      "features": ["Light, colour, effects and grading", "Ten film filters and your own", "Crop, straighten, cinema bars", "LED dots and a photo stamp", "SEND to .Capture, .Studio, .WallPaper, .BattleWall"],
+      "with": ["finder", "capture", "studio", "wallpaper", "battlewall"],
+      "videos": []
+    },
+    {
+      "id": "wallpaper", "name": ".WALLPAPER", "pkg": "com.ledwall.app", "released": false,
+      "tagline": "AN LED HOME SCREEN",
+      "about": "A live wallpaper that turns your phone's screen into an LED dot board: clock, weather, calendar, music, games and your own pictures, in layouts that change through the day.",
+      "features": ["Layouts with clock, weather, calendar and more", "Rotate layouts or change them by time", "Picture studio: your photos as LEDs", "Snake and other little games", "Charging lightning, notification light, screen saver"],
+      "with": ["editor"],
+      "videos": []
+    },
+    {
+      "id": "calculator", "name": ".CALCULATOR", "pkg": "com.vihersalo.calc", "released": false,
+      "tagline": "SUMS IN LEDS",
+      "about": "An everyday calculator laid out like your phone's own, drawn as an LED board, with unit and currency converters and tools for beat makers.",
+      "features": ["The usual layout, live result, history", "Currency with crypto, length, area, weight and more", "Tap tempo, delay times, tempo shift, song length, note ↔ Hz", "Colour skins"],
+      "with": [],
+      "videos": []
+    }
+  ]
+}

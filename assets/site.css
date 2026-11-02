@@ -89,4 +89,33 @@ a { color: inherit; }
 @keyframes pulse { 50% { filter: brightness(.65); } }
 .board .updated { margin-top: 18px; }
 
+/* The Dot family (#/dot). */
+.dot { margin-top: 22px; }
+.dot-head { display: flex; flex-direction: column; gap: 12px; }
+.dot-intro { max-width: 720px; color: #e9e4d8; font: 16px/1.55 ui-monospace, Menlo, Consolas, monospace; margin: 18px 0 8px; }
+.dot-h { margin: 34px 0 14px; }
+.flows { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.flow { background: #141416; border: 2px solid #2a2a2f; border-radius: 8px; padding: 16px; }
+.flow-about { color: #8b877e; font: 14px/1.4 ui-monospace, Menlo, Consolas, monospace; margin: 10px 0 0; }
+.steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 128px 1fr; justify-items: start; gap: 10px; align-items: start;
+  color: #e9e4d8; font: 14px/1.45 ui-monospace, Menlo, Consolas, monospace; }
+.key.chip { min-height: 30px; min-width: 0; padding: 5px 8px; border-radius: 7px; }
+.dot-apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.dot-app { display: flex; flex-direction: column; gap: 10px; background: #141416; border: 2px solid #2a2a2f; border-radius: 8px;
+  padding: 16px; text-decoration: none; }
+.dot-app:hover { border-color: var(--amber); }
+.dot-app p { margin: 0; color: #e9e4d8; font: 13px/1.45 ui-monospace, Menlo, Consolas, monospace;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.dot-app-foot { margin-top: auto; display: flex; justify-content: space-between; gap: 8px; padding-top: 6px; }
+.dot-store { margin: 18px 0 0; }
+.features { color: #e9e4d8; font: 15px/1.6 ui-monospace, Menlo, Consolas, monospace; padding-left: 20px; margin: 0; max-width: 720px; }
+.features li::marker { color: var(--amber); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.video { margin: 0; }
+.video iframe, .video video { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 6px; background: #000; display: block; }
+.video video { aspect-ratio: auto; max-height: 70vh; }
+.video figcaption { margin-top: 6px; color: #8b877e; font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; }
+
 .bottom { margin-top: 48px; padding-top: 18px; border-top: 2px dotted var(--dim); }
