@@ -1,7 +1,7 @@
 // Layout rules must match Capture's (model/PageLayout.kt, model/Magazine.kt). Run: node --test
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { lineHeight, magazineRegions, place, readPage, pageTitle } from "../assets/page.js";
+import { labelledSongSections, lineHeight, magazineRegions, place, readPage, pageTitle } from "../assets/page.js";
 
 test("line heights land on whole half-lines, like the app", () => {
   assert.equal(lineHeight(18), 32);
@@ -51,4 +51,15 @@ test("older pages read with what they lack filled in", () => {
   assert.deepEqual(d.images, []);
   assert.equal(pageTitle(d), "hi");
   assert.equal(pageTitle(readPage({ template: "song", song: { title: "Night Drive" } })), "Night Drive");
+});
+
+test("song sheet sections with their own label print no name (as in Capture)", () => {
+  const doc = { template: "song", tags: [
+    { kind: "section", text: "HOOK", x: 16, y: 164 },
+    { kind: "section", text: "VERSE", x: 16, y: 160 + 2 * 192 + 4 },
+    { kind: "section", text: "LOW", x: 16, y: 280 },
+    { kind: "chord", text: "Am", x: 16, y: 356 },
+  ] };
+  assert.deepEqual([...labelledSongSections(doc, new Map())].sort(), [0, 2]);
+  assert.equal(labelledSongSections({ ...doc, template: "chords" }, new Map()).size, 0);
 });

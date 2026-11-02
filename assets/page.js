@@ -266,7 +266,26 @@ function hline(ctx, color, y, x0, x1, width = 1) {
   ctx.stroke();
 }
 
-function drawTemplate(ctx, doc, theme, w, h, mag) {
+/**
+ * The song sheet's sections whose name band (top 40 px) holds a section label of the page's own: those
+ * print no name (as in Capture's PageLayout.labelledSongSections; songs from Mobstudio name their sections).
+ */
+export function labelledSongSections(doc, placed) {
+  const out = new Set();
+  if (doc.template !== "song") return out;
+  for (const t of doc.tags || []) {
+    if (t.kind !== "section") continue;
+    const off = t.anchor ? placed?.get(t.anchor) : { x: 0, y: 0 };
+    if (!off) continue;
+    const y = off.y + t.y + 8;
+    if (y < SONG_FIRST_SECTION) continue;
+    const k = Math.floor((y - SONG_FIRST_SECTION) / SONG_SECTION);
+    if (y - (SONG_FIRST_SECTION + k * SONG_SECTION) < 40) out.add(k);
+  }
+  return out;
+}
+
+function drawTemplate(ctx, doc, theme, w, h, mag, labelled = new Set()) {
   ctx.fillStyle = theme.paper;
   ctx.fillRect(0, 0, w, h);
   switch (doc.template) {
@@ -311,7 +330,7 @@ function drawTemplate(ctx, doc, theme, w, h, mag) {
       hline(ctx, theme.rule, 96, third, third * 2 - 8);
       hline(ctx, theme.rule, 96, third * 2, w);
       for (let top = SONG_FIRST_SECTION, i = 0; top < h; top += SONG_SECTION, i++) {
-        label(ctx, theme, SONG_SECTIONS[i % SONG_SECTIONS.length], 16, top + 12, 12, { accent: true });
+        if (!labelled.has(i)) label(ctx, theme, SONG_SECTIONS[i % SONG_SECTIONS.length], 16, top + 12, 12, { accent: true });
         for (let k = 2; k <= 5; k++) hline(ctx, theme.rule, top + k * LINE, 0, w);
       }
       break;
@@ -486,7 +505,7 @@ export function renderPage(host, doc, paper, files, width) {
   canvas.className = "paper";
   const ctx = canvas.getContext("2d");
   ctx.scale(dpr, dpr);
-  drawTemplate(ctx, doc, theme, pageW, pageH, mag);
+  drawTemplate(ctx, doc, theme, pageW, pageH, mag, labelledSongSections(doc, placed));
   page.prepend(canvas);
 
   // Song details, in the song sheet's slots or one line at the top.

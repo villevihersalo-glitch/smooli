@@ -5,7 +5,7 @@
 
 ## Status
 - **Stage:** Live on GitHub Pages; Ville publishes from Capture
-- **Last updated:** 2026-11-01 — by Claude (live, first real posts)
+- **Last updated:** 2026-11-02 — by Claude (song sheet labels as in Capture 0.11.2)
 - **Home tool for code:** Claude
 - **Repo:** github.com/villevihersalo-glitch/smooli (public)
 - **How to build/run:** Nothing to build. GitHub Pages serves `main`. Locally: `python3 -m http.server`.
@@ -23,6 +23,7 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-02 — Song sheet: a section labelled on the page prints no name of its own (as Capture 0.11.2; songs from Mobstudio)
 - 2026-11-01 — Live: Ville switched on GitHub Pages and published his board and first pages from Capture; everything works
 - 2026-11-01 — PROJECTS page: Capture's board cards marked ON WEBSITE, with pictures, status lamps (in progress pulses), subtitle and notes; key in the menu when there are any; demo projects
 - 2026-11-01 — Capture 0.10.0 publishes here (PUBLISH / UPDATE / UNPUBLISH); posts list their `files` in site.json
