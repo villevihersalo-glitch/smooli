@@ -63,7 +63,7 @@ function header(active) {
 }
 
 function footer() {
-  return el("footer", "bottom", [led("MADE IN CAPTURE  ·  BLOCK PARTY", { pitch: 1.4, color: level(AMBER, DIM) })]);
+  return el("footer", "bottom", [led("MADE IN .CAPTURE  ·  .DOT", { pitch: 1.4, color: level(AMBER, DIM) })]);
 }
 
 /** A post on the front page: its paper, cover picture, section, title, date and first words. */

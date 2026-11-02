@@ -3,7 +3,7 @@
 Ville's blog and portfolio: writing, music, photography, making, coffee and software, published
 straight from a paper notebook on his phone with [Capture](https://github.com/villevihersalo-glitch/capture).
 Each post is a Capture page drawn the way the app draws it (paper, handwriting-style ink, magazine
-layouts, song sheets with chords, beats that play), inside the Block Party LED-amber skin.
+layouts, song sheets with chords, beats that play), inside the Dot family's LED-amber skin.
 
 - **Live site:** GitHub Pages from `main` (Settings → Pages → Deploy from a branch → `main` / root).
 - **No build step:** plain HTML, CSS and JavaScript modules in `assets/`; content in `content/`.

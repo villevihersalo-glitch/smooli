@@ -1,7 +1,7 @@
 # PROJECT.md — Smooli (Ville's site)
 
 > Ville's blog and portfolio, published from Capture on his phone: writing, music, photography,
-> making, coffee, software. Capture pages drawn as they look in the app, in the Block Party LED skin.
+> making, coffee, software. Capture pages drawn as they look in the app, in the Dot family's LED skin.
 
 ## Status
 - **Stage:** Live on GitHub Pages; Ville publishes from Capture
