@@ -332,6 +332,13 @@ function drawTemplate(ctx, doc, theme, w, h, mag, labelled = new Set()) {
       for (let top = SONG_FIRST_SECTION, i = 0; top < h; top += SONG_SECTION, i++) {
         if (!labelled.has(i)) label(ctx, theme, SONG_SECTIONS[i % SONG_SECTIONS.length], 16, top + 12, 12, { accent: true });
         for (let k = 2; k <= 5; k++) hline(ctx, theme.rule, top + k * LINE, 0, w);
+        // One line is one bar (as in .Studio): bar numbers in a margin left of a thin line (Capture 0.13).
+        for (let j = 1; j <= 4; j++) label(ctx, theme, String(j), 4, top + j * LINE + 10, 9);
+        ctx.save();
+        ctx.strokeStyle = theme.rule;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(14, top + LINE); ctx.lineTo(14, top + 5 * LINE); ctx.stroke();
+        ctx.restore();
       }
       break;
     }

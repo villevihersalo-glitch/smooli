@@ -5,7 +5,7 @@
 
 ## Status
 - **Stage:** Live on GitHub Pages; Ville publishes from Capture
-- **Last updated:** 2026-11-02 — by Claude (.DOT APPS pages)
+- **Last updated:** 2026-11-02 — by Claude (lyrics both ways on .DOT; song sheet bar numbers)
 - **Home tool for code:** Claude
 - **Repo:** github.com/villevihersalo-glitch/smooli (public)
 - **How to build/run:** Nothing to build. GitHub Pages serves `main`. Locally: `python3 -m http.server`.
@@ -24,6 +24,9 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-02 — Song sheets show bar numbers 1–4 by every section's lines with a thin margin line (as Capture 0.13).
+  .DOT APPS: new flow LYRICS FIRST, BEAT LATER (.Capture sheet → LYRICS .STUDIO > → PICK BEAT → record → back to
+  .Capture), and the features on the .Capture and .Studio pages
 - 2026-11-02 — .DOT APPS (Ville: one home for the family, with explainers and videos): `#/dot` shows the nine Dot apps
   and three ways they work together (beat → song, photo → everywhere, battle a friend) as numbered steps with app chips;
   `#/dot/<app>` has what it does, features, works with, its flows, videos (YouTube or a file) and GET IT ON GOOGLE PLAY
