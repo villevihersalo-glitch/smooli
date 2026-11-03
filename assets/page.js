@@ -387,7 +387,12 @@ function inkPath(p, kind, width) {
     return `M${p[0]},${p[1]}L${x1},${y1}M${hx(spread)},${hy(spread)}L${x1},${y1}L${hx(-spread)},${hy(-spread)}`;
   }
   if (n === 1) return `M${p[0]},${p[1]}l0.01,0`;
-  if (n === 2) return `M${p[0]},${p[1]}L${p[2]},${p[3]}`;
+  if (n === 2 || kind === "line") {
+    // Straight segments: a line, or a shape's outline (box, oval, triangle, diamond), as in Capture 0.14.
+    let d = `M${p[0]},${p[1]}`;
+    for (let i = 1; i < n; i++) d += `L${p[2 * i]},${p[2 * i + 1]}`;
+    return d;
+  }
   let d = `M${p[0]},${p[1]}`;
   for (let i = 1; i < n - 1; i++) {
     const cx = p[2 * i], cy = p[2 * i + 1];

@@ -24,6 +24,8 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-03 — Ink `line` strokes draw as straight segments through all their points (Capture 0.14's shapes: box, oval,
+  triangle, diamond)
 - 2026-11-03 — .DOT APPS pages list .VJ (the video DJ app), ten apps (`content/dot.json`)
 - 2026-11-02 — Song sheets show bar numbers 1–4 by every section's lines with a thin margin line (as Capture 0.13).
   .DOT APPS: new flow LYRICS FIRST, BEAT LATER (.Capture sheet → LYRICS .STUDIO > → PICK BEAT → record → back to
