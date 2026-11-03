@@ -24,6 +24,8 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-03 — Capture page format 6: pencil (see-through, grainy), brush (45° nib outline) and spray (seeded dots)
+  drawn with the same numbers as the phone (`tests/ink.test.mjs`); turned pictures (`rot`)
 - 2026-11-03 — Ink `line` strokes draw as straight segments through all their points (Capture 0.14's shapes: box, oval,
   triangle, diamond)
 - 2026-11-03 — .DOT APPS pages list .VJ (the video DJ app), ten apps (`content/dot.json`)

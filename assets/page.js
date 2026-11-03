@@ -156,7 +156,7 @@ export function readPage(json) {
     strokes: (d.strokes || []).map((s) => ({
       kind: s.kind || "pen", color: s.color, width: +s.width || 2, anchor: s.anchor || null, pts: s.pts || [],
     })),
-    images: (d.images || []).map((i) => ({ file: i.file, x: +i.x, y: +i.y, w: +i.w, h: +i.h })),
+    images: (d.images || []).map((i) => ({ file: i.file, x: +i.x, y: +i.y, w: +i.w, h: +i.h, rot: +i.rot || 0 })),
     audio: (d.audio || []).map((a) => ({ file: a.file, x: +a.x, y: +a.y, name: a.name || "Sound", ms: +a.ms || 0, loop: !!a.loop })),
     tags: (d.tags || []).map((t) => ({ kind: t.kind || "chord", text: t.text || "", x: +t.x, y: +t.y, anchor: t.anchor || null })),
     song: d.song || null,
@@ -644,7 +644,7 @@ export function renderPage(host, doc, paper, files, width) {
     img.alt = "";
     img.loading = "lazy";
     img.className = "pic";
-    img.style.cssText = `left:${i.x}px;top:${i.y}px;width:${i.w}px;height:${i.h}px`;
+    img.style.cssText = `left:${i.x}px;top:${i.y}px;width:${i.w}px;height:${i.h}px` + (i.rot ? `;transform:rotate(${i.rot}deg)` : "");
     page.insertBefore(img, page.children[1] || null);
   }
   const under = inkSvg(doc, placed, paper, true, pageW, pageH);
