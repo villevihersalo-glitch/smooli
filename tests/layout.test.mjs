@@ -63,3 +63,12 @@ test("song sheet sections with their own label print no name (as in Capture)", (
   assert.deepEqual([...labelledSongSections(doc, new Map())].sort(), [0, 2]);
   assert.equal(labelledSongSections({ ...doc, template: "chords" }, new Map()).size, 0);
 });
+
+test("canvas paper wraps text at 480 wide anywhere on it (as Capture's CANVAS_TEXT)", () => {
+  const blocks = [{ id: "a", x: 2000, y: 100, size: 18 }, { id: "b", x: 20, y: 100, size: 18 }];
+  const p = place(blocks, new Map(), 12000, new Map(), 480);
+  assert.equal(p.get("a").x, 2000);
+  assert.equal(p.get("a").w, 480);
+  assert.equal(p.get("b").w, 480);
+  assert.equal(p.get("b").y, 100, "side by side, not pushed down");
+});

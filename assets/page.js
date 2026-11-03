@@ -1,7 +1,7 @@
 /*
  * Draws a Capture page in the browser, the way the app draws it.
  *
- * Reads the page format Capture stores and publishes (versions 1–6, see Capture's
+ * Reads the page format Capture stores and publishes (versions 1–7, see Capture's
  * docs/DATA-FORMAT.md) and lays it out with the same rules as Capture's model/PageLayout.kt and
  * model/Magazine.kt: the page is as wide as the screen (up to 760 px), text blocks run to the
  * right margin and rewrap, a block that would overlap the one above is pushed down, ink circled
@@ -18,6 +18,9 @@ const RULED_MARGIN = 40;
 const SIDE = 20;
 const MIN_WIDTH = 120;
 export const MAX_WIDTH = 760;
+/** Canvas paper (format 7): text wraps at this width; the canvas can be this wide. */
+export const CANVAS_TEXT = 480;
+export const CANVAS_MAX = 12000;
 const STAFF_GAP = 9;
 const STAFF_PERIOD = 104;
 const TAB_PERIOD = 112;
@@ -223,12 +226,12 @@ function blockStyle(b, theme) {
  * Places blocks like PageLayout.place: reading order, each pushed below any block above that
  * it would overlap, using measured heights and the width the text really uses.
  */
-export function place(blocks, heights, pageW, widths) {
+export function place(blocks, heights, pageW, widths, textW = Infinity) {
   const out = new Map();
   const placed = [];
   for (const b of [...blocks].sort((a, c) => a.y - c.y || a.x - c.x)) {
     const x = blockX(b.x, pageW);
-    const w = blockWidth(b.x, pageW);
+    const w = Math.min(blockWidth(b.x, pageW), Math.max(MIN_WIDTH, textW));
     const h = heights.get(b.id) ?? lineHeight(b.size);
     const cw = widths.has(b.id) ? Math.min(Math.max(widths.get(b.id), MIN_TEXT_WIDTH), w) : w;
     let top = b.y;
@@ -546,7 +549,12 @@ function div(cls, style, html) {
  */
 export function renderPage(host, doc, paper, files, width) {
   const theme = PAPERS[paper] || PAPERS.warm;
-  const pageW = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH * 2, width || 393));
+  // A canvas page is as wide as its drawing (Capture publishes that width); text wraps at CANVAS_TEXT there.
+  const isCanvas = doc.template === "canvas";
+  const pageW = isCanvas ? Math.min(CANVAS_MAX, Math.max(MIN_WIDTH * 2, width || 393))
+    : Math.min(MAX_WIDTH, Math.max(MIN_WIDTH * 2, width || 393));
+  const layoutW = isCanvas ? CANVAS_MAX : pageW;
+  const textW = isCanvas ? CANVAS_TEXT : Infinity;
   const page = div("page", `width:${pageW}px;background:${theme.paper};font-family:${theme.font}`);
   host.appendChild(page);
 
@@ -554,7 +562,7 @@ export function renderPage(host, doc, paper, files, width) {
   const heights = new Map(), widths = new Map(), els = new Map();
   for (const b of doc.blocks) {
     if (!b.text) continue;
-    const el = div("block", `${blockStyle(b, theme)};width:${blockWidth(b.x, pageW)}px`, blockHtml(b, theme));
+    const el = div("block", `${blockStyle(b, theme)};width:${Math.min(blockWidth(b.x, layoutW), Math.max(MIN_WIDTH, textW))}px`, blockHtml(b, theme));
     page.appendChild(el);
     els.set(b.id, el);
   }
@@ -567,7 +575,7 @@ export function renderPage(host, doc, paper, files, width) {
     for (const r of range.getClientRects()) right = Math.max(right, r.right - left);
     widths.set(id, right);
   }
-  const placed = place(doc.blocks.filter((b) => els.has(b.id)), heights, pageW, widths);
+  const placed = place(doc.blocks.filter((b) => els.has(b.id)), heights, layoutW, widths, textW);
   for (const [id, el] of els) {
     const box = placed.get(id);
     const b = doc.blocks.find((x) => x.id === id);

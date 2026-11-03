@@ -5,7 +5,7 @@
 
 ## Status
 - **Stage:** Live on GitHub Pages; Ville publishes from Capture
-- **Last updated:** 2026-11-03 — by Claude (.VJ added to the .DOT APPS pages)
+- **Last updated:** 2026-11-04 — by Claude (Capture's canvas pages)
 - **Home tool for code:** Claude
 - **Repo:** github.com/villevihersalo-glitch/smooli (public)
 - **How to build/run:** Nothing to build. GitHub Pages serves `main`. Locally: `python3 -m http.server`.
@@ -24,6 +24,7 @@ pages (all papers incl. song sheets and magazine layouts, ink, pictures, chords,
 
 ## Done
 Newest first, one line each:
+- 2026-11-04 — Capture page format 7, canvas paper: drawn as wide as Capture says the drawing is (up to 12 000 px, scaled to fit), text wrapping at 480 px as in the app (`tests/layout.test.mjs`)
 - 2026-11-03 — Capture page format 6: pencil (see-through, grainy), brush (45° nib outline) and spray (seeded dots)
   drawn with the same numbers as the phone (`tests/ink.test.mjs`); turned pictures (`rot`)
 - 2026-11-03 — Ink `line` strokes draw as straight segments through all their points (Capture 0.14's shapes: box, oval,
