@@ -11,5 +11,5 @@ The site's **.DOT APPS** key opens a page about the whole Dot app family (`#/dot
   video kept in `content/dot/` (mind GitHub Pages' 1 GB limit; YouTube is the better home for videos).
 - **flows**: how the apps work together, as numbered steps, each with the app doing it.
 
-`tests/dot.test.mjs` checks the rules (names, links between apps, the same nine apps as inside the apps).
+`tests/dot.test.mjs` checks the rules (names, links between apps, the same ten apps as inside the apps).
 When an app is released, set `released` here **and** in every app's `DotFamily`.

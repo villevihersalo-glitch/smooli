@@ -292,6 +292,23 @@
       ],
       "with": [],
       "videos": []
+    },
+    {
+      "id": "vj",
+      "name": ".VJ",
+      "pkg": "com.vihersalo.vj",
+      "released": false,
+      "tagline": "SCRATCH VIDEOS",
+      "about": "Scratch videos like records. Load a clip on each of two decks and the jog wheel moves picture and sound together: forwards, backwards, stopped, stuttering. The crossfader blends the pictures as it blends the sound, in an old-film look or LED dots, and the picture can go alone to a TV or projector while the decks stay on the phone.",
+      "features": [
+        "Two video decks with records to scratch, on screen or with a DJ controller",
+        "Picture and sound always together, forwards and backwards",
+        "Crossfader blends or cuts the pictures with the sound",
+        "Looks: old film (grain, dust, scratches, flicker), silent film, clean, LED dots",
+        "Picture alone on a TV or projector; MIDI controllers"
+      ],
+      "with": [],
+      "videos": []
     }
   ]
 }

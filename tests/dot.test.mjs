@@ -8,7 +8,7 @@ const dot = JSON.parse(readFileSync(new URL("../content/dot.json", import.meta.u
 
 test("dot.json keeps its rules", () => {
   assert.deepEqual(checkDot(dot), []);
-  assert.equal(dot.apps.length, 9);
+  assert.equal(dot.apps.length, 10);
 });
 
 test("the apps match the DOT APPS list inside the apps (same ids and names)", () => {
@@ -16,6 +16,7 @@ test("the apps match the DOT APPS list inside the apps (same ids and names)", ()
     "com.vihersalo.beatpad": ".BEATPAD", "com.vihersalo.mobstudio": ".STUDIO", "com.vihersalo.capture": ".CAPTURE",
     "com.vihersalo.battlewall": ".BATTLEWALL", "com.vihersalo.tapedeck": ".BOOMBOX", "com.vihersalo.dotfinder": ".FINDER",
     "com.vihersalo.doteditor": ".EDITOR", "com.ledwall.app": ".WALLPAPER", "com.vihersalo.calc": ".CALCULATOR",
+    "com.vihersalo.vj": ".VJ",
   };
   assert.deepEqual(Object.fromEntries(dot.apps.map((a) => [a.pkg, a.name])), inApps);
 });
