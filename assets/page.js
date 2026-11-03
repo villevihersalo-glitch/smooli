@@ -1,7 +1,7 @@
 /*
  * Draws a Capture page in the browser, the way the app draws it.
  *
- * Reads the page format Capture stores and publishes (versions 1–5, see Capture's
+ * Reads the page format Capture stores and publishes (versions 1–6, see Capture's
  * docs/DATA-FORMAT.md) and lays it out with the same rules as Capture's model/PageLayout.kt and
  * model/Magazine.kt: the page is as wide as the screen (up to 760 px), text blocks run to the
  * right margin and rewrap, a block that would overlap the one above is pushed down, ink circled
@@ -401,6 +401,88 @@ function inkPath(p, kind, width) {
   return d + `L${p[2 * n - 2]},${p[2 * n - 1]}`;
 }
 
+// Brush and spray, copied from Capture's model/InkLooks.kt (same numbers, so the website draws what the phone draws).
+const NIB = Math.PI / 4;
+
+export function brushWidths(p, width) {
+  const n = p.length / 2;
+  const w = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+    const a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
+    const dir = Math.atan2(p[2 * b + 1] - p[2 * a + 1], p[2 * b] - p[2 * a]);
+    w[i] = width * (0.22 + 0.78 * Math.abs(Math.sin(dir - NIB)));
+  }
+  const s = w.slice();
+  for (let i = 1; i < n - 1; i++) s[i] = (w[i - 1] + 2 * w[i] + w[i + 1]) / 4;
+  const ends = Math.min(4, Math.floor(n / 2));
+  for (let k = 0; k < ends; k++) {
+    const f = 0.35 + (0.65 * k) / ends;
+    s[k] *= f;
+    s[n - 1 - k] *= f;
+  }
+  return s;
+}
+
+export function brushOutline(p, width) {
+  const n = p.length / 2;
+  if (n === 0) return [];
+  if (n === 1) {
+    const r = width / 2, out = [];
+    for (let k = 0; k < 8; k++) out.push(p[0] + r * Math.cos((Math.PI * 2 * k) / 8), p[1] + r * Math.sin((Math.PI * 2 * k) / 8));
+    return out;
+  }
+  const w = brushWidths(p, width);
+  const out = new Array(n * 4);
+  for (let i = 0; i < n; i++) {
+    const a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
+    let dx = p[2 * b] - p[2 * a], dy = p[2 * b + 1] - p[2 * a + 1];
+    const len = Math.hypot(dx, dy);
+    if (len > 0) { dx /= len; dy /= len; } else { dx = 1; dy = 0; }
+    const hw = w[i] / 2, j = 2 * n - 1 - i;
+    out[2 * i] = p[2 * i] - dy * hw; out[2 * i + 1] = p[2 * i + 1] + dx * hw;
+    out[2 * j] = p[2 * i] + dy * hw; out[2 * j + 1] = p[2 * i + 1] - dx * hw;
+  }
+  return out;
+}
+
+export const sprayRadius = (width) => Math.max(4, width * 2);
+export const seedOf = (p) => (p.length < 2 ? 1 : (Math.round(p[0] * 10) * 7919 + Math.round(p[1] * 10) * 104729 + 17) | 0);
+
+/** mulberry32, as InkLooks.Rand. */
+export function rand(seed) {
+  let a = seed | 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+export function sprayDots(p, width) {
+  const n = p.length / 2;
+  if (n === 0) return [];
+  const reach = sprayRadius(width), next = rand(seedOf(p)), out = [];
+  const step = Math.max(1.5, reach * 0.35);
+  const burst = (x, y) => {
+    for (let k = 0; k < 7; k++) {
+      const a = next() * Math.PI * 2;
+      const d = reach * Math.sqrt(next() * next());
+      out.push(x + d * Math.cos(a), y + d * Math.sin(a), Math.max(0.35, width * 0.09) * (0.6 + 0.8 * next()));
+    }
+  };
+  burst(p[0], p[1]);
+  let carry = 0;
+  for (let i = 1; i < n; i++) {
+    const x0 = p[2 * i - 2], y0 = p[2 * i - 1], x1 = p[2 * i], y1 = p[2 * i + 1];
+    const len = Math.hypot(x1 - x0, y1 - y0);
+    let t = step - carry;
+    while (t <= len) { burst(x0 + ((x1 - x0) * t) / len, y0 + ((y1 - y0) * t) / len); t += step; }
+    carry = (carry + len) % step;
+  }
+  return out;
+}
+
 function inkSvg(doc, placed, paper, highlighters, w, h) {
   let paths = "";
   for (const s of doc.strokes) {
@@ -413,7 +495,24 @@ function inkSvg(doc, placed, paper, highlighters, w, h) {
     }
     const color = inkFor(s.color, paper);
     const op = s.kind === "highlighter" ? (paper === "night" ? 0.45 : 0.38) : 1;
-    paths += `<path transform="translate(${ox},${oy})" d="${inkPath(s.pts, s.kind, s.width)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${s.width}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const at = `transform="translate(${ox},${oy})"`;
+    if (s.kind === "brush") {
+      const o = brushOutline(s.pts, s.width);
+      let d = "";
+      for (let i = 0; i < o.length; i += 2) d += (i ? "L" : "M") + o[i] + "," + o[i + 1];
+      paths += `<path ${at} d="${d}Z" fill="${color}"/>`;
+    } else if (s.kind === "spray") {
+      const dots = sprayDots(s.pts, s.width);
+      let g = "";
+      for (let k = 0; k < dots.length; k += 3) g += `<circle cx="${dots[k].toFixed(2)}" cy="${dots[k + 1].toFixed(2)}" r="${dots[k + 2].toFixed(2)}"/>`;
+      paths += `<g ${at} fill="${color}">${g}</g>`;
+    } else if (s.kind === "pencil") {
+      const d = inkPath(s.pts, s.kind, s.width);
+      paths += `<path ${at} d="${d}" stroke="${color}" stroke-opacity="0.55" stroke-width="${s.width * 0.9}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+      paths += `<path ${at} d="${d}" stroke="${color}" stroke-opacity="0.6" stroke-width="${s.width * 0.55}" fill="none" stroke-dasharray="1.1 1.3" stroke-linejoin="round"/>`;
+    } else {
+      paths += `<path ${at} d="${inkPath(s.pts, s.kind, s.width)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${s.width}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
   }
   if (!paths) return null;
   const el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
